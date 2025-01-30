@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Notas</title>
+    <style>
+        h1 {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            overflow-x: auto;
+        }
+
+        th,
+        td {
+            padding: 10px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .tags {
+            font-style: italic;
+        }
+
+        .delete-button {
+            background: none;
+            border: none;
+            color: red;
+            cursor: pointer;
+            font-size: 20px;
+            padding: 0;
+        }
+
+        .delete-button:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 600px) {
+
+            table,
+            thead,
+            tbody,
+            th,
+            td,
+            tr {
+                display: block;
+            }
+
+            tr {
+                margin-bottom: 15px;
+            }
+
+            th {
+                display: none;
+                /* Esconder cabeçalhos em telas menores */
+            }
+
+            td {
+                text-align: right;
+                position: relative;
+                padding-left: 50%;
+                /* Para adicionar espaço para o label */
+            }
+
+            td::before {
+                position: absolute;
+                left: 10px;
+                width: 45%;
+                white-space: nowrap;
+                text-align: left;
+                font-weight: bold;
+            }
+
+            td:nth-of-type(1)::before {
+                content: "ID";
+            }
+
+            td:nth-of-type(2)::before {
+                content: "Título";
+            }
+
+            td:nth-of-type(3)::before {
+                content: "Citação";
+            }
+
+            td:nth-of-type(4)::before {
+                content: "Autor";
+            }
+
+            td:nth-of-type(5)::before {
+                content: "Tags";
+            }
+
+            td:nth-of-type(6)::before {
+                content: "";
+            }
+
+            /* Coluna do botão de deletar */
+        }
+    </style>
+</head>
+
+<body>
+    {% include 'navbar.html' %}
+
+    <h1>Lista de Notas</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Título</th>
+                <th>Citação</th>
+                <th>Autor</th>
+                <th>Tags</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for nota in notas %}
+            <tr>
+                <td>{{ nota.id }}</td>
+                <td>{{ nota.titulo }}</td>
+                <td>{{ nota.citacao }}</td>
+                <td>{{ nota.autor }}</td>
+                <td class="tags">
+                    {% for tag_nota in nota.tags %}
+                    {{ tag_nota.tag.nome }}{% if not loop.last %}, {% endif %}
+                    {% endfor %}
+                </td>
+                <td>
+                    <form action="{{ url_for('apagar_nota', nota_id=nota.id) }}" method="POST" style="display: inline;">
+                        <button type="submit" class="delete-button" title="Apagar Nota">&times;</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</body>
+
+</html>

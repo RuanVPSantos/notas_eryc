@@ -1,0 +1,62 @@
+<nav>
+    <ul class="navbar">
+        <li><a href="/">Início</a></li>
+        <li><a href="/tags">Tags</a></li>
+        <li><a href="/notas">Notas</a></li>
+        <li><a href="/notas/filtrar">Filtro Notas</a></li>
+        <li><a href="/exportar">DB</a></li>
+    </ul>
+</nav>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f8f9fa;
+    }
+
+    nav {
+        background-color: #007bff;
+        padding: 10px;
+        margin: 2em;
+    }
+
+    .navbar {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        justify-content: center;
+    }
+
+    .navbar li {
+        margin: 0 15px;
+    }
+
+    .navbar a {
+        color: white;
+        text-decoration: none;
+        padding: 5px 10px;
+        border-radius: 5px;
+        font-size: 1.5em;
+        transition: background-color 0.3s;
+    }
+
+    .navbar a:hover {
+        background-color: #0056b3;
+    }
+
+    @media (max-width: 600px) {
+        nav {
+            margin: 0;
+        }
+
+        .navbar {
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .navbar li {
+            margin: 5px 0;
+        }
+    }
+</style>
